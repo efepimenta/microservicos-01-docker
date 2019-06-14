@@ -5,7 +5,6 @@
 - composer install
 - npm install
 - docker-compose up -d
-- acesse http://localhost:8000
 - configure seu .env
 ```php
  DB_CONNECTION=mysql
@@ -19,6 +18,7 @@
  REDIS_PASSWORD=null
  REDIS_PORT=6379
  ```
+ - acesse http://localhost:8000
 
 ## Docker Hub
 - Repositório: https://cloud.docker.com/repository/docker/efepimenta/laravel_app
