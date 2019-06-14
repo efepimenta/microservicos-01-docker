@@ -4,7 +4,6 @@
 - cd code-microservicos-01-docker
 - composer install
 - npm install
-- docker-compose up -d
 - configure seu .env
 ```php
  DB_CONNECTION=mysql
@@ -18,6 +17,7 @@
  REDIS_PASSWORD=null
  REDIS_PORT=6379
  ```
+ - docker-compose up -d
  - acesse http://localhost:8000
 
 ## Docker Hub
