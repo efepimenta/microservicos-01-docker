@@ -12,6 +12,8 @@ services:
         depends_on:
             db:
                 condition: service_healthy
+#            composer:
+#                condition: service_healthy
 
     db:
         image: mysql:5.7
@@ -48,6 +50,18 @@ services:
             - app-network
         depends_on:
           - app
+
+#    composer:
+#        build: .docker/composer
+#        container_name: composer
+#        command: install
+#        volumes:
+#            - .:/var/www
+#        healthcheck:
+#            test: ["CMD", 'ls /var/www/vendor/autoload.php']
+#            interval: 30s
+#            timeout: 1m
+#            retries: 4
 
     redis:
         image: redis:alpine
