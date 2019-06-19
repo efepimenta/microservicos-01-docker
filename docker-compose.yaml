@@ -12,8 +12,8 @@ services:
         depends_on:
             db:
                 condition: service_healthy
-#            composer:
-#                condition: service_healthy
+            composer:
+                condition: service_healthy
 
     db:
         image: mysql:5.7
@@ -58,7 +58,7 @@ services:
         volumes:
             - .:/var/www
         healthcheck:
-            test: ["SHELL", "ls", "/var/www/vendor/autoload.php"]
+            test: ["CMD-SHELL", "ls", "/var/www/vendor/autoload.php"]
             interval: 10s
             retries: 30
 
