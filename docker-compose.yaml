@@ -51,17 +51,16 @@ services:
         depends_on:
           - app
 
-#    composer:
-#        build: .docker/composer
-#        container_name: composer
-#        command: install
-#        volumes:
-#            - .:/var/www
-#        healthcheck:
-#            test: ["CMD", 'ls /var/www/vendor/autoload.php']
-#            interval: 30s
-#            timeout: 1m
-#            retries: 4
+    composer:
+        build: .docker/composer
+        container_name: composer
+        command: install
+        volumes:
+            - .:/var/www
+        healthcheck:
+            test: ["SHELL", "ls", "/var/www/vendor/autoload.php"]
+            interval: 10s
+            retries: 30
 
     redis:
         image: redis:alpine
