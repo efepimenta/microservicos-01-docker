@@ -1,28 +1,5 @@
-# Instalação
-
-- git clone https://github.com/efepimenta/code-microservicos-01-docker.git
-- cd code-microservicos-01-docker
-- composer install
-- npm install
-- configure seu .env
-```php
- DB_CONNECTION=mysql
- DB_HOST=db
- DB_PORT=3306
- DB_DATABASE=laravel
- DB_USERNAME=root
- DB_PASSWORD=root
- 
- REDIS_HOST=redis
- REDIS_PASSWORD=null
- REDIS_PORT=6379
- ```
- - docker-compose up -d
- - acesse http://localhost:8000
-
 ## Docker Hub
-- Repositório: https://cloud.docker.com/repository/docker/efepimenta/laravel_app
-- Rodando: docker run -p 9000:9000 efepimenta/laravel_app:latest
+- Repositório: https://hub.docker.com/r/efepimenta/laravel_app
 
 ---
 
