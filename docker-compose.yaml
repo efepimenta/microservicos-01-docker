@@ -9,10 +9,9 @@ services:
             - .:/var/www
         networks:
             - app-network
+        entrypoint: .docker/entrypoint.sh
         depends_on:
             db:
-                condition: service_healthy
-            composer:
                 condition: service_healthy
 
     db:
@@ -49,18 +48,20 @@ services:
         networks:
             - app-network
         depends_on:
-          - app
+            - app
 
-    composer:
-        build: .docker/composer
-        container_name: composer
-        command: install
-        volumes:
-            - .:/var/www
-        healthcheck:
-            test: ["CMD-SHELL", "ls", "/var/www/vendor/autoload.php"]
-            interval: 10s
-            retries: 30
+#    composer:
+#        build: .docker/composer
+#        container_name: composer
+#        command: install
+#        volumes:
+#            - .:/var/www
+#        healthcheck:
+#            test: ["CMD-SHELL", "ls", "/var/www/vendor/autoload.php"]
+#            interval: 10s
+#            retries: 30
+#        depends_on:
+#          - app
 
     redis:
         image: redis:alpine
