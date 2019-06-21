@@ -6,7 +6,7 @@ COPY ./hello /tmp/hello
 
 WORKDIR /tmp/hello
 
-RUN go build
+RUN go build -ldflags "-w" hello.go
 
 RUN cp hello ../hello-go
 
@@ -14,7 +14,7 @@ RUN rm -rf /tmp/hello/
 
 WORKDIR /go
 
-FROM golang:1.12.6-alpine3.10
+FROM hello-world
 
 COPY --from=builder /tmp/hello-go .
 
