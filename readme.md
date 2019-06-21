@@ -1,6 +1,8 @@
 ## Docker Hub
 - Repositório: https://hub.docker.com/r/efepimenta/laravel_app
 
+
+- docker run efepimenta/codeeducation
 ---
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>

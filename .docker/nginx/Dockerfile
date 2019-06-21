@@ -2,22 +2,21 @@ FROM nginx:1.15.0-alpine
 
 RUN rm /etc/nginx/conf.d/default.conf
 
-RUN apk update && apk add --no-cache bash
+RUN apk update && apk add --no-cache bash shadow curl
 
-ENV DOCKERIZE_VERSION v0.6.1
-RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-
-RUN apk --no-cache add shadow && \
-    usermod -u 1000 nginx && \
+RUN usermod -u 1000 nginx && \
     groupmod -g 1000 nginx
 
-EXPOSE 80
-ADD nginx_conf.tmpl /tmp/nginx_conf.tmpl
+RUN curl -sfL $(curl -s https://api.github.com/repos/powerman/dockerize/releases/latest | grep -i /dockerize-$(uname -s)-$(uname -m)\" | cut -d\" -f4) | install /dev/stdin /usr/local/bin/dockerize
+
+WORKDIR /var/www
+
+#ADD nginx_conf.tmpl /tmp/nginx_conf.tmpl
 
 #ENV SERVICE_NAME=app
 #ENV SERVICE_PORT=9000
 #CMD dockerize -template ./nginx.conf.tmpl:/etc/nginx/nginx.conf
+
+EXPOSE 80
 
 ENTRYPOINT ["nginx", "-g", "'daemon off;'"]
