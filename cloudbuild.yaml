@@ -22,4 +22,4 @@ steps:
 
     - id: "rodando testes"
       name: 'gcr.io/cloud-builders/docker'
-      args: ['exec', '-t', 'app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/vendor/phpunit.xml']
+      args: ['exec', '-t', 'app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml']
