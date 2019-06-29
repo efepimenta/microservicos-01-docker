@@ -12,7 +12,7 @@ steps:
       name: 'gcr.io/cloud-builders/docker'
       args: ['exec', '-t', 'app', 'cp', '.env.example', '.env']
 
-    - id: "rodando key:generate"
+    - id: "rodando key:generate-2"
       name: 'gcr.io/cloud-builders/docker'
       args: ['exec', '-t', 'app', 'php', 'artisan', 'key:generate']
 
