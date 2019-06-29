@@ -20,6 +20,6 @@ steps:
       name: 'gcr.io/cloud-builders/docker'
       args: ['exec', '-t', 'app', 'php', 'artisan', 'migrate']
 
-    - id: "rodando PhpUnit"
+    - id: "rodando Phpunit"
       name: 'gcr.io/cloud-builders/docker'
       args: ['exec', '-t', 'app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml']
