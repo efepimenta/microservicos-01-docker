@@ -11,7 +11,7 @@ RUN curl -sfL $(curl -s https://api.github.com/repos/powerman/dockerize/releases
 
 WORKDIR /var/www
 
-#ADD nginx_conf.tmpl /tmp/nginx_conf.tmpl
+ADD nginx_conf.tmpl /tmp/nginx_conf.tmpl
 
 #ENV SERVICE_NAME=app
 #ENV SERVICE_PORT=9000
