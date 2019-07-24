@@ -1,0 +1,53 @@
+steps:
+
+    - id: "rodando docker-compose"
+      name: 'gcr.io/$PROJECT_ID/docker-compose:1.24.0'
+      args: ['-f', 'docker-compose.cloudbuild.yaml', 'up', '-d']
+
+    - id: "rodando composer"
+      name: 'gcr.io/cloud-builders/docker'
+      args: ['exec', '-t', 'app', 'composer', 'install']
+
+    - id: "copiando .env"
+      name: 'gcr.io/cloud-builders/docker'
+      args: ['exec', '-t', 'app', 'cp', '.env.example', '.env']
+
+    - id: "rodando key:generate-2"
+      name: 'gcr.io/cloud-builders/docker'
+      args: ['exec', '-t', 'app', 'php', 'artisan', 'key:generate']
+
+    - id: "rodando migrations"
+      name: 'gcr.io/cloud-builders/docker'
+      args: ['exec', '-t', 'app', 'php', 'artisan', 'migrate']
+
+    - id: "rodando Phpunit"
+      name: 'gcr.io/cloud-builders/docker'
+      args: ['exec', '-t', 'app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml']
+
+    - id: "building image from Dockerfile.prod"
+      name: 'gcr.io/cloud-builders/docker'
+      args: ['build', '-t', 'gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA', '-f' , 'Dockerfile.prod', '.']
+
+    - id: "pushing image"
+      name: 'gcr.io/cloud-builders/docker'
+      args: ['push', 'gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA']
+
+    - id: "ajustando deploy file no kube"
+      name: 'gcr.io/cloud-builders/gcloud'
+      entrypoint: '/bin/sh'
+      args:
+          - '-c'
+          - |
+              sed 's#img-app-deployment/gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA#g' k8s/app/deployment.yaml > k8s/app/deploy-new.yaml;
+              cat k8s/app/deploy-new.yaml;
+
+    - id: "deploy k8s"
+      name: 'gcr.io/cloud-builders/kubectl'
+      args:
+          - 'apply'
+          - '-f'
+          - 'k8s/app/deploy-new.yaml'
+      env:
+          - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+          - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-docker-laravel'
+
