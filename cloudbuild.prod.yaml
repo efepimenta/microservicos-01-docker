@@ -26,7 +26,7 @@ steps:
 
     - id: "building image from Dockerfile.prod"
       name: 'gcr.io/cloud-builders/docker'
-      args: ['build', '-t', 'gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA', '-f' , 'Dockerfile.prod', '.']
+      args: ['build', '-t', 'gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA', '-f' , 'Dockerfile.prod.yaml', '.']
 
     - id: "pushing image"
       name: 'gcr.io/cloud-builders/docker'
