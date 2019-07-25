@@ -7,7 +7,7 @@ data:
 
       APP_NAME=Docker-Laravel
       APP_ENV=local
-      APP_KEY=
+      APP_KEY=base64:HOWrDa6Q1Sa59tqDVHDtZd/sjWcDTDn706wBTYDO+rY=
       APP_DEBUG=true
       APP_URL=http://localhost
 
