@@ -39,7 +39,6 @@ steps:
           - '-c'
           - |
               sed 's#img-app-deployment/gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA#g' k8s/app/deployment.yaml > k8s/app/deploy-new.yaml;
-              cat k8s/app/deploy-new.yaml;
 
     - id: "deploy k8s"
       name: 'gcr.io/cloud-builders/kubectl'
@@ -50,5 +49,3 @@ steps:
       env:
           - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
           - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-docker-laravel'
-          - 'CLOUDSDK_CONTAINER_USE_CLIENT_CERTIFICATE=True'
-
