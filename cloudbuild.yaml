@@ -16,7 +16,7 @@ steps:
       name: 'gcr.io/cloud-builders/docker'
       args: ['exec', '-t', 'app', 'php', 'artisan', 'key:generate']
 
-    - id: "rodando migrations"
+    - id: "rodando migrations, migrando...."
       name: 'gcr.io/cloud-builders/docker'
       args: ['exec', '-t', 'app', 'php', 'artisan', 'migrate']
 
